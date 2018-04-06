@@ -7,10 +7,14 @@
 
 1. Clone and navigate to chatbot directory.
 
-2. Install the required packages.
+2. Install python 2.7 and the required packages.
     ```bash
     for windows type the following command in cmd:
+    python -m pip install --upgrade pip setuptools wheel
+    
     pip install -r requirements.txt 
+    
+    pip install PyAIML
     ```
 
 3. Run the python server.
