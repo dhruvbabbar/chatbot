@@ -19,18 +19,17 @@ app = Flask(__name__)
 def main():
     return render_template('chat.html')
 
-@app.route("/contact/", methods=['POST','GET'])
+
+#Error: this saves the data into the database but happens only once. Second time the control somehow returns the main menu by calling the "/" controller stated above. 
+@app.route("/contact", methods=['POST'])
 def contact():  
             name="null"
             phone="null"
-            
-            if request.method=='GET':
-                name= result.args.get('name')
-                phone=result.args.get('phone')
-               
-            elif request.method=='POST':                    
-                name= result.get('name')
-                phone=result.get('phone')
+            result = request.get_json(force=True)
+            name= result.get('name')
+            phone=result.get('phone')
+            print(name)
+            print(phone)
               
             try:      
                 with connection.cursor() as cursor:

@@ -349,8 +349,8 @@ input:-webkit-autofill:focus {
                                                     if(flag)
                                                         {
                                                             e.preventDefault();
-                                                            var contact = $.ajax({
-                                                                url: "/",
+                                                            $.ajax({
+                                                                url: "/contact",
                                                                 dataType: "json", 
                                                                 async:true,
                                                                 data:JSON.stringify( { "name": fullname, "phone": phone } ),
@@ -362,7 +362,7 @@ input:-webkit-autofill:focus {
                                                                     console.log(error);
                                                                 }
                                                             });
-                                                         contact.abort;
+                                                         
                                                          document.getElementById('menu2').style.display = 'none';
                                                          document.getElementById('contact-form').style.display = 'none';
 
@@ -597,7 +597,7 @@ input:-webkit-autofill:focus {
                                     function validatePrevPrem(policy)
                                     {   
                                         var re = /^\w+$/;
-                                        if (!re.test(policy) || policy.length!=6) {                                           
+                                        if (!re.test(policy) || policy.length!=8) {                                           
                                             return false;
                                         }
                                         return true;
@@ -653,7 +653,7 @@ input:-webkit-autofill:focus {
                                     function valPolicyStatus(policy)
                                     {   
                                         var re = /^\w+$/;
-                                        if (!re.test(policy) || policy.length!=6) {                                           
+                                        if (!re.test(policy) || policy.length!=8) {                                           
                                             return false;
                                         }
                                         return true;
