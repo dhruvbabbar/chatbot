@@ -16,7 +16,7 @@
     
     pip install PyAIML
     ```
-3.Run database.sql in mysql client to import the database web_customer_service.
+3. Run database.sql in mysql client to import the database web_customer_service.
 
 4. Run the python server.
     ```bash
@@ -24,6 +24,7 @@
     ```
 5. Open **http://127.0.0.1:8080** in your browser.
 
-6. You're done and let's chat with your Robot via browser.
+6.  html file: templates/chat.html
+    controller: main.py
 
 
