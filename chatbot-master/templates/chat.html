@@ -251,7 +251,7 @@ input:-webkit-autofill:focus {
                            $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> </strong> '+ message + '</div></li>');
                     }
                 
-                var end= $.ajax({
+                $.ajax({
                     type: "POST",
                     url: "/ask",
                     data: $(this).serialize(), 
@@ -260,8 +260,7 @@ input:-webkit-autofill:focus {
                          $('#messageText').val('');
                             answer = response.answer; 
                             
-			             $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);
-			
+			             $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);			             
                     },
                     error: function(error) {
                         console.log(error);
@@ -271,11 +270,11 @@ input:-webkit-autofill:focus {
                 
                  if(answer)
                          {
-                             
                             const chatPanel = document.getElementById("chatPanel");
                                 if(answer==="Contact Us")
-                                    {                                        
-                                      $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="product"><div class="product_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Sales Enquiry</div><div class="product_des" style="padding-top: 5px;">Email id:<a href="mailto:dhruvbabbar349@gmail.com" target="_blank">dhruvbabbar349@gmail.com</a><br>Helpline No: 1800 000 0000</div></div></div></li>');
+                                    {   
+                                    var flag=false;
+                                      $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-left\:-40px;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="product"><div class="product_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Sales Enquiry</div><div class="product_des" style="padding-top: 5px;">Email id:<a href="mailto:dhruvbabbar349@gmail.com" target="_blank">dhruvbabbar349@gmail.com</a><br>Helpline No: 1800 000 0000</div></div></div></li>');
                                         
                                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="product"><div class="product_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Policy Enquiry</div><div class="product_des" style="padding-top: 5px;">Email id:<a href="mailto:customercare@dhfl.com" target="_blank">customercare@dhfl.com</a><br>Helpline No: 1800 000 0000</div></div></div></li>');
                                         
@@ -317,39 +316,40 @@ input:-webkit-autofill:focus {
                                                 {    
                                                    var fullname=$('#name').val();
                                                    var phone = $('#phone').val();
-                                                   var flag = false;
+                                                    alert(flag);
+//                                                   var flag = false;
                                                   
-                                                   if((!validateName(fullname)))
-                                                    {
-                                                        document.getElementById('name_error').style.display = 'block';
-                                                        e.preventDefault();    
-                                                    }
-                                                   else if (validateName(fullname))
-                                                    {
-                                                         document.getElementById('name_error').style.display = 'none';
-                                                    }
-                                                       
-                                                  if(!validatePhone(phone))
-                                                   {
-                                                        document.getElementById('phone_error').style.display = 'block';
-                                                        e.preventDefault();                                                           
-                                                   }
-                                                   else if (validateName(phone))
-                                                    {
-                                                         document.getElementById('phone_error').style.display = 'none';
-                                                    }
-                                                    if(validatePhone(phone) && validateName(fullname) )
-                                                    {
-                                                       document.getElementById('phone_error').style.display = 'none';
-                                                         document.getElementById('name_error').style.display = 'none';
-                                                        flag=true;
-                                                    }
+//                                                   if((!validateName(fullname)))
+//                                                    {
+//                                                        document.getElementById('name_error').style.display = 'block';
+//                                                        e.preventDefault();    
+//                                                    }
+//                                                   else if (validateName(fullname))
+//                                                    {
+//                                                         document.getElementById('name_error').style.display = 'none';
+//                                                    }
+//                                                       
+//                                                  if(!validatePhone(phone))
+//                                                   {
+//                                                        document.getElementById('phone_error').style.display = 'block';
+//                                                        e.preventDefault();                                                           
+//                                                   }
+//                                                   else if (validateName(phone))
+//                                                    {
+//                                                         document.getElementById('phone_error').style.display = 'none';
+//                                                    }
+//                                                    if(validatePhone(phone) && validateName(fullname) )
+//                                                    {
+//                                                       document.getElementById('phone_error').style.display = 'none';
+//                                                         document.getElementById('name_error').style.display = 'none';
+//                                                        flag=true;
+//                                                    }
                                                    
-                                                 
-                                                    if(flag)
+                                                    
+                                                        if(!flag)
                                                         {
                                                             e.preventDefault();
-                                                            $.ajax({
+                                                           $.ajax({
                                                                 url: "/contact",
                                                                 dataType: "json", 
                                                                 async:true,
@@ -357,6 +357,8 @@ input:-webkit-autofill:focus {
                                                                 type: "POST",
                                                                 success: function(response) {
                                                                     console.log(response.name);
+                                                                   
+                                                                    flag=true;
                                                                 },
                                                                 error: function(error) {
                                                                     console.log(error);
@@ -400,9 +402,9 @@ input:-webkit-autofill:focus {
                                 {
                                     
                                      document.getElementById('menu2').style.display = 'none';
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the following:" + '</div></li>');
+                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the sfollowing:" + '</div></li>');
                                     
-                                    $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="customer-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyStatus" value="Policy Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Policy Status</button></div>                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="fundValue" value="Fund Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Fund Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="surrenderValue" value="Surrender Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Surrender Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumInfo" value="Premium Information" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Premium Information</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="neftStatus" value="NEFT Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>NEFT Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="renewalStatus" value="Renewal Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Renewal Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="termMaturity" value="Maturity Benefit" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Maturity Benefit</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyRevival" value="Policy Revival" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Policy Revival</button></div></div></li>');
+                                    $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="customer-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyStatus" value="Policy Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Policy Status</button></div>                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="fundValue" value="Fund Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Fund Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="surrenderValue" value="Surrender Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Surrender Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumInfo" value="Premium Information" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;m ,argin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Premium Information</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="neftStatus" value="NEFT Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>NEFT Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="renewalStatus" value="Renewal Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Renewal Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="termMaturity" value="Maturity Benefit" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Maturity Benefit</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyRevival" value="Policy Revival" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Policy Revival</button></div></div></li>');
                                 }
                                 
                                 else if (answer==="Premium Information")

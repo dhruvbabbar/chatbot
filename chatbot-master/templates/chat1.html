@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chatbot</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+<!--        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">-->
+        <style type="text/css">
+         .fixed-panel {
+                min-height: 400px;
+                max-height: 400px;
+		background-image:url("{{url_for('static',filename="bg6.jpg")}}");
+		color: white;
+                overflow: auto;
+                          }
+            .media-list,content {
+
+           		overflow: auto;
+			clear: both;
+			display: inline-block;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			word-break: normal;
+			line-break: strict;		
+           }
+            .error{
+                color: red;
+            }
+            a:hover{
+                text-decoration: none;
+            }
+			.panel {
+			margin-bottom: 0px;
+			background-color: #fff;
+			border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+			}
+			.panel-info {
+			
+			}
+			.panel-info>.panel-heading {
+
+                background-color: #fff;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                padding-top: 45px;
+                margin-top: -1px;
+                margin-left: -1px;
+                margin-right: -1px;
+			}
+			.panel-footer {
+                position: relative;
+			background-color: #fff;
+			border-bottom-right-radius: 10px;
+			border-bottom-left-radius: 10px;
+			}
+            .panel-footer input{text-indent: 5px;}
+            
+            .panel-footer .fa-phone-volume { 
+                  position: absolute;
+                  top: 14px;
+                  padding-left: 20px;
+                  right:10px;
+                  font-size: 15px;
+                  float: right;
+                }
+            
+            .panel-footer .fa-microphone:hover { 
+                    text-decoration: none;
+                    outline: none;
+                    background-color: white;
+                    
+                }
+            
+            .logo{
+                background: url("{{url_for('static',filename="logo.png")}}");
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: block;
+                width: 100%;                
+            }
+           #contact-form ::placeholder
+            { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #1679ba;
+                opacity: 1; /* Firefox */
+            }
+            #policyNumber-form ::placeholder
+             { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #1679ba;
+                opacity: 1; /* Firefox */
+            }
+           
+            input.form-control,input.form-control:focus,input.form-control:hover {
+                border:none;
+                box-shadow: none;
+               -webkit-box-shadow: none;
+               -moz-box-shadow: none;
+               -moz-transition: none;
+               -webkit-transition: none;
+                background: white;
+            }
+           input:-webkit-autofill {
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+}
+
+input:focus,
+input:-webkit-autofill:focus {
+    border-color: #66afe9;
+    -webkit-box-shadow: inset 0 0 0px 9999px white,
+                        0 0 8px rgba(102, 175, 233, 0.6);
+}
+            
+        
+            
+/*
+             @media screen and (max-width: 480px) {
+                 .option{
+                     width: 50%;
+                 }
+            }
+*/
+            @media screen and (max-width: 500px) {
+                 .col-lg-6, col-sm-6, col-md-6{
+                     width: 80%;
+                     margin-left: -10px;
+                 }                
+            }
+            
+            }
+            
+			
+			body {
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#608f95+0,008588+9,0c2449+52,1a1e3b+100 */
+			 /* Old browsers */
+/*			background: -moz-linear-gradient(-45deg, rgba(96,143,149,1) 0%, rgba(0,133,136,1) 9%, rgba(12,36,73,1) 52%, rgba(26,30,59,1) 100%);  FF3.6-15 */
+/*			background: -webkit-linear-gradient(-45deg, rgba(96,143,149,1) 0%,rgba(0,133,136,1) 9%,rgba(12,36,73,1) 52%,rgba(26,30,59,1) 100%);  Chrome10-25,Safari5.1-6 */
+/*			background: linear-gradient(135deg, rgba(96,143,149,1) 0%,rgba(0,133,136,1) 9%,rgba(12,36,73,1) 52%,rgba(26,30,59,1) 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#608f95', endColorstr='#1a1e3b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+			}
+
+        </style>
+    </head>
+<body style="background: rgb(200,199,201);">
+        <div class="container">
+		  
+            <div class="row" style="padding-top: 40px;border: none;" >
+                
+        
+                <div class="col-md-7 col-md-offset-2">
+				
+                    <div id="chatPanel" class="panel panel-info " style="box-shadow: 2px 3px 4px rgba(45,44,45,0.6);width:100%;"> 
+                        <div class="panel-heading logo" style="">    
+                              
+                               
+<!--							<strong><span class="glyphicon glyphicon-globe"></span> BOT !!!</strong>-->
+						</div>
+                       
+                        <div class="panel-body fixed-panel" style="" >
+                           
+                            <ul class="media-list" >
+                               
+                            </ul>
+                            <ul class="content" >
+                                 <li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="contact" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer"> 
+                         
+                          
+                            <form method="post" id="chatbot-form" >
+                          
+                                <div class="">
+                                    <div class="form-group">
+
+                                      <div class="input-group " style="margin-bottom: -10px;">
+                                        <input type="text" class="form-control" style="outline: none;" placeholder="Enter your message..." name="messageText" id="messageText"/> <span style="background: white;outline: none;border: none;padding-right: 0px;" class="input-group-addon"><a href="#"> <i
+                                          class="fas fa-home" style="font-size: 20px;padding-right: 10px;"></i></a><a href="#"> <i   ]class="fas fa-microphone" style="font-size: 20px;"></i></a>
+                                          
+                                        </span>
+                                        <span style="background: white;outline: none;border: none;" class="input-group-addon">
+                                        </span>
+                                      </div>
+                                    </div>
+                                </div>
+<!--
+                                   
+                                        <input type="text" class="form-control" style="outline: none;" placeholder="Enter your message..." name="messageText" id="messageText" width="" style="float: left;" />
+                                   
+                                         <span class="fas fa-phone-volume" style="font-size:30px;float:left;float: right;"></span>
+                                    
+-->
+                               
+                                
+                            </form>
+                           
+                        </div>
+                    </div>
+              
+				
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script>
+            var message;
+            var len;
+            var answer;
+            var flag=false;
+            
+//            $(window).load(function(){
+//                $(".media-list").append('<li class="media" style="width:40%;overflow-wrap: break-word;background-color:azure;border-radius:20px;color:black;" ><div class="media-body" ><div class="media" ><div class="media-body" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Alice : </strong> '+ "Hi, how may I help you?" + ' </div></div></div></li>');
+//               
+//                $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="contact" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>');
+//                 $('#chatbot-form').submit();
+//                
+//            });
+           
+       $('#contact').click(function()
+            {
+                console.log("inside contatc function");
+                message=$('#contact').val();   
+                console.log(message);
+                $('#messageText').val(message)   
+                console.log("registered");
+                contact_submit();
+                
+            });
+            function contact_submit()
+                {
+                    console.log("got inside contatc_submit")
+                    const chatPanel = document.getElementById("chatPanel");
+                    $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form class="contact" id="contact-form" method="post" name="name" ><div class="form-group" style="padding-right: 2px;"><input type="name" class="input-md form-control " id="name" placeholder="Name" style="border:1px solid #1679ba;margin-bottom: 5px;"><span  id="name_error" class="error" style="display: none;">** A valid name is required</span></div><div class="form-group"><input type="phone" class="form-control input-md" id="phone" placeholder="Phone" style="border:1px solid #1679ba;margin-bottom: 5px;display: inline;"><span  id="phone_error" class="error" style="display: none;">** A valid phone mobile number is required</span></div><button id="chatbot-form-btn"  style="background-color: #1679ba;color: #fff;margin-top: -4px;" class="btn btn-default">Submit</button></form></li>');        
+                $('#chatbot-form-btn').click(function(e)
+                {
+                    e.preventDefault();
+                     var fullname=$('#name').val();
+                    var phone = $('#phone').val();
+                    console.log(fullname);
+                    console.log(phone);
+                    $.ajax({
+                            url: "/contact",
+                            dataType: "json", 
+                            async:true,
+                            data:JSON.stringify( { "name": fullname, "phone": phone } ),
+                            type: "POST",
+                            success: function(response) {
+                                console.log(response.name);
+
+                               
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                        flag=true;
+                   
+                    if(flag)
+                        {
+                            $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
+
+
+                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " onclick="contact_submit()" id="contact" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>'); 
+                            flag=false;
+                        }
+                });
+                
+                }
+ 
+        $(function() {                
+//               $(document).ready(function(){
+//                
+//                $(document).on('click','button',function(){
+//                   //code here
+//                   message=this.value;
+//                   $('#messageText').val(message)                 
+//                    $('#chatbot-form').submit();
+//                    document.getElementById('menu2').style.display = 'none';
+//                });
+//            });
+           
+           
+          
+            $('#chatbot-form').submit(function(e) {
+//                $( document ).ajaxStop(function() {
+//                  console.log( "Triggered ajaxStop handler." );
+//                });
+               
+                e.preventDefault();
+                 const chatPanel = document.getElementById("chatPanel");
+                
+//                var len=$('#messageText').val().length;    
+////                
+////                if(len>=1)
+////                    message=$('#messageText').val();
+//                var msglen =message.length  ;           
+//                if(len>=1 || msglen>=1)
+//                    {                         
+//                         e.preventDefault();
+//                           $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  onsubmit="return name_validation()" class="contact" id="contact-form" method="post" name="name" ><div class="form-group" style="padding-right: 2px;"><input type="name" class="input-md form-control " id="name" placeholder="Name" style="border:1px solid #1679ba;margin-bottom: 5px;"><span  id="name_error" class="error" style="display: none;">** A valid name is required</span></div><div class="form-group"><input type="phone" class="form-control input-md" id="phone" placeholder="Phone" style="border:1px solid #1679ba;margin-bottom: 5px;display: inline;"><span  id="phone_error" class="error" style="display: none;">** A valid phone mobile number is required</span></div><button id="chatbot-form-btn"  style="background-color: #1679ba;color: #fff;margin-top: -4px;" class="btn btn-default">Submit</button></form></li>');
+//                    }
+              
+                
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/ask",
+//                    data: $(this).serialize(), 
+//                   
+//                    success: function(response) {
+//                         $('#messageText').val('');
+//                            answer = response.answer; 
+//                            e.preventDefault();
+////			             $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);			             
+//                    },
+//                    error: function(error) {
+//                        console.log(error);
+//                    }
+//                    
+//                });
+                    
+                 if(message)
+                         {
+                               
+                              e.preventDefault();
+                              const chatPanel = document.getElementById("chatPanel");
+                                if(message==="Contact Us")
+                                    {   
+                                         const chatPanel = document.getElementById("chatPanel");
+                                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form class="contact" id="contact-form" method="post" name="name" ><div class="form-group" style="padding-right: 2px;"><input type="name" class="input-md form-control " id="name" placeholder="Name" style="border:1px solid #1679ba;margin-bottom: 5px;"><span  id="name_error" class="error" style="display: none;">** A valid name is required</span></div><div class="form-group"><input type="phone" class="form-control input-md" id="phone" placeholder="Phone" style="border:1px solid #1679ba;margin-bottom: 5px;display: inline;"><span  id="phone_error" class="error" style="display: none;">** A valid phone mobile number is required</span></div><button id="chatbot-form-btn"  onclick="contact_submit()" style="background-color: #1679ba;color: #fff;margin-top: -4px;" class="btn btn-default">Submit</button></form></li>');                                        
+                                       
+                                       
+                                                
+                                    }
+                                   
+                                    else
+                                    {
+                                         e.preventDefault();
+                                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ answer + '</div></li>');
+                                       
+                                    }
+                             
+                             $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);
+                         }
+          });
+             });
+                                                      
+        </script>
+        
+    </body>
+</html>
