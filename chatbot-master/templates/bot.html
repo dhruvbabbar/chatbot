@@ -215,38 +215,97 @@ input:-webkit-autofill:focus {
                 menu_display();      
             });
             
+            //validations for contact form
+            function validateName(name)
+            {
+                if(name.length!=0)
+                {
+                     if (/^[A-Za-z\s]+$/.test(name))
+                     {
+                        return true;
+                     }
+                     else 
+                        return false;
+                }
+                else
+                    return false;
+
+            }
+             function validatePhone(number)
+             {
+                 if(number.length==10)
+                     {
+                         if (/^\d{10}$/.test(number) )
+                         {
+                             return true;
+                         }
+                         else 
+                           return false;
+                     }
+                 else
+                     return false;
+             }
+            
             //event handler for contact button click
             $(document).off().on('click','#contact-btn',function(e)
             {     
                 e.preventDefault(); //prevent screen rollback/refresh
                 
                 var fullname=$('#name').val();
-                var phone = $('#phone').val();
+                var phone = $('#phone').val();                
+                var flag=false;
+                
+                if((!validateName(fullname)))
+                {
+                     document.getElementById('name_error').style.display = 'block';                     
+                }
+                else if (validateName(fullname))
+                {
+                     document.getElementById('name_error').style.display = 'none';
+                }
+
+                if(!validatePhone(phone))
+                {
+                     document.getElementById('phone_error').style.display = 'block';
+                }
+                else if (validateName(phone))
+                {
+                    document.getElementById('phone_error').style.display = 'none';
+                }                
+                if(validatePhone(phone) && validateName(fullname) )
+                {
+                    document.getElementById('phone_error').style.display = 'none';
+                    document.getElementById('name_error').style.display = 'none';
+                    flag=true;
+                }
                
                 //ajax call to /contact in main.py to store data in MySQL table customer
-                $.ajax({
-                        url: "/contact",
-                        dataType: "json", 
-                        async:true,
-                        data:JSON.stringify( { "name": fullname, "phone": phone } ),
-                        type: "POST",
-                        success: function(response) {
-                            console.log(response.name);
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    });
-                
-                //clear all content on the page
-                $("#content").html("");
-                $("#media-list").html("");
+                if(flag)
+                {
+                        $.ajax({
+                                url: "/contact",
+                                dataType: "json", 
+                                async:true,
+                                data:JSON.stringify( { "name": fullname, "phone": phone } ),
+                                type: "POST",
+                                success: function(response) {
+                                    console.log(response.name);
+                                },
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });
 
-                //display thank you message.
-                 $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Thank you. We will get in touch with you." + '</div></li>');
-                
-                //call main menu again.
-                menu_recur_display();
+                        //clear all content on the page
+                        $("#content").html("");
+                        $("#media-list").html("");
+
+                        //display thank you message.
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Thank you. We will get in touch with you." + '</div></li>');
+
+                        //call main menu again.
+                        menu_recur_display();
+                }
             });
             function menu_recur_display()  
             {

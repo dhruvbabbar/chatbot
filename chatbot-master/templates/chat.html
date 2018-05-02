@@ -225,12 +225,70 @@ input:-webkit-autofill:focus {
                
                 menu_display();      
             });
+            
+            function validateName(name)
+            {
+                if(name.length!=0)
+                {
+                     if (/^[A-Za-z\s]+$/.test(name))
+                     {
+                        return true;
+                     }
+                     else 
+                        return false;
+                }
+                else
+                    return false;
+
+            }
+             function validatePhone(number)
+             {
+                 if(number.length==10)
+                     {
+                         if (/^\d{10}$/.test(number) )
+                         {
+                             return true;
+                         }
+                         else 
+                           return false;
+                     }
+                 else
+                     return false;
+             }
             $(document).off().on('click','#contact-btn',function(e)
             {     
                 fullname=$('#name').val();
                 phone = $('#phone').val();
+                var flag=false;
                 
-                $.ajax({
+                if((!validateName(fullname)))
+                {
+                     document.getElementById('name_error').style.display = 'block';                     
+                }
+                else if (validateName(fullname))
+                {
+                     document.getElementById('name_error').style.display = 'none';
+                }
+
+                if(!validatePhone(phone))
+                {
+                     document.getElementById('phone_error').style.display = 'block';
+                }
+                else if (validateName(phone))
+                {
+                    document.getElementById('phone_error').style.display = 'none';
+                }
+                print(flag);
+                if(validatePhone(phone) && validateName(fullname) )
+                {
+                    document.getElementById('phone_error').style.display = 'none';
+                    document.getElementById('name_error').style.display = 'none';
+                    flag=true;
+                }
+                
+                if(flag):
+                {
+                    $.ajax({
                         url: "/contact",
                         dataType: "json", 
                         async:true,
@@ -244,12 +302,12 @@ input:-webkit-autofill:focus {
                         }
                     });
                 
-                $("#content").html("");
-                $("#media-list").html("");
-                $("#media-body").html("");
-                
-                e.preventDefault();
-               
+                    $("#content").html("");
+                    $("#media-list").html("");
+                    $("#media-body").html("");
+
+                    e.preventDefault();
+                }
             });
             
             function menu_recur_display()
