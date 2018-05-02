@@ -5,7 +5,6 @@ import os
 import dates as dt
 import pymysql.cursors
 #from flask.ext.mysql import MySQL
-
 connection = pymysql.connect(host='localhost',
                              user='Springstudent',
                              password='Springstudent',
@@ -15,41 +14,42 @@ connection = pymysql.connect(host='localhost',
 
 app = Flask(__name__)
 
-
-@app.route("/",methods=['POST','GET'])
-def main():    
-#        if(request.method=="POST"):
-#            return ("inside main post")
-        
-        print("inside main get")
-        return render_template('chat1.html')
+@app.route("/")
+def main():
+    return render_template('bot.html')
 
 
 #Error: this saves the data into the database but happens only once. Second time the control somehow returns the main menu by calling the "/" controller stated above. 
 @app.route("/contact", methods=['POST'])
 def contact():  
-            print ("inside contact post")
-            name="null"
-            phone="null"
+            connection = pymysql.connect(host='localhost',
+                             user='Springstudent',
+                             password='Springstudent',
+                             db='Web_customer_service',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+            if(connection.close):
+                connection = pymysql.connect(host='localhost',
+                             user='Springstudent',
+                             password='Springstudent',
+                             db='Web_customer_service',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+           
             result = request.get_json(force=True)
             name= result.get('name')
             phone=result.get('phone')
-            print(name)
-            print(phone)
-              
-            try:      
-                with connection.cursor() as cursor:
-                # Read a single record
-                    sql = "INSERT INTO customer (Namez,Phone) VALUES (%s, %s)";
-                    cursor.execute(sql, (name,phone))
-                    connection.commit()  
-                    print(info.phone)
-                    print(info.name)
-                    console.log("this is a dummy method")
-                    
-            finally:     
-#                    connection.close()
-                    return "Saved successfully."
+           
+            with connection.cursor() as cursor:
+            # Read a single record
+                sql = "INSERT INTO customer (Namez,Phone) VALUES (%s, %s)";
+                cursor.execute(sql, (name,phone))
+                connection.commit()  
+                print(name)
+                print(phone)                
+#                cursor.close()
+                connection.close()
+                return "Saved successfully."
         
 #app.route("/test",method=['POST','GET'])
 #def test():
@@ -197,12 +197,10 @@ def prevPremium():
             return jsonify({'status':'OK','answer':previousPremium})
         
 @app.route("/ask", methods=['POST','GET'])
-def ask():  
-            if (request.method=="POST"):
-                print("inside ask post")
+def ask():                        
             message = str(request.form['messageText'])
             kernel = aiml.Kernel()
-            print("inside ask  "+message)
+
             if os.path.isfile("bot_brain.brn"):
                 kernel.bootstrap(brainFile = "bot_brain.brn")
             else:
@@ -215,26 +213,6 @@ def ask():
                     exit()
                 elif message == "save":
                     kernel.saveBrain("bot_brain.brn")
-#                elif message == "Contact Us":
-#                    print ("inside contact ")
-##                    name="null"
-##                    phone="null"
-#                    result = request.get_json(force=True)
-#                    name= result.get('name')
-#                    phone=result.get('phone')
-#                    print(name)
-#                    print(phone)
-#
-#                    try:      
-#                        with connection.cursor() as cursor:
-#                        # Read a single record
-#                            sql = "INSERT INTO customer (Namez,Phone) VALUES (%s, %s)";
-#                            cursor.execute(sql, (name,phone))
-#                            connection.commit()   
-#
-#                    finally:     
-#                            #connection.close()
-#                            return "Saved successfully."
                 else:
                     bot_response = kernel.respond(message);                       
                     return jsonify({'status':'OK','answer':bot_response})
@@ -246,7 +224,6 @@ def answer():
             
             if os.path.isfile("bot_brain.brn"):
                 kernel.boostrap(brainFile= "bot_brain.brn")
-                
             else:
                 kernel.boostrap(learngFiles = os.path.abspath("aim/std-starup.xml"),commands = "Load aiml b")
                 kernel.saveBrain("bot_brain.brn")

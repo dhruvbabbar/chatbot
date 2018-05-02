@@ -164,10 +164,26 @@ input:-webkit-autofill:focus {
                         <div class="panel-body fixed-panel" style="" >
                            
                             <ul class="media-list" >
-
+                                <li class="media" style="width:40%;overflow-wrap: break-word;background-color:azure;border-radius:20px;color:black;" ><div class="media-body" ><div class="media" ><div class="media-body" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Alice : </strong> '+ "Hi, how may I help you?" + ' </div></div></div></li>
+                                
+                                
                             </ul>
                             <ul class="content" >
-                                
+                                <li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;">
+                                    <div id="menu2">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="">
+                                            <a href="">
+                                                <button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a>
+                                        </div>
+                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button>
+                                         </div>
+                                         
+                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div>
+                                         
+                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div>
+                                    </div>
+                                         
+                                </li>
                             </ul>
                         </div>
                         <div class="panel-footer"> 
@@ -186,18 +202,8 @@ input:-webkit-autofill:focus {
                                         </span>
                                       </div>
                                     </div>
-                                  </div>
-<!--
-                                   
-                                        <input type="text" class="form-control" style="outline: none;" placeholder="Enter your message..." name="messageText" id="messageText" width="" style="float: left;" />
-                                   
-                                         <span class="fas fa-phone-volume" style="font-size:30px;float:left;float: right;"></span>
-                                    
--->
-                               
-                                
-                            </form>
-                           
+                                  </div>                               
+                            </form>                            
                         </div>
                     </div>
               
@@ -211,210 +217,130 @@ input:-webkit-autofill:focus {
             var message;
             var len;
             var answer;
+            var fullname;
+            var phone;
             
             $(window).load(function(){
-                $(".media-list").append('<li class="media" style="width:40%;overflow-wrap: break-word;background-color:azure;border-radius:20px;color:black;" ><div class="media-body" ><div class="media" ><div class="media-body" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Alice : </strong> '+ "Hi, how may I help you?" + ' </div></div></div></li>');
-                
-                $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>');
-                
+                $(".media-list").append('<li class="media" style="width:40%;overflow-wrap: break-word;background-color:azure;border-radius:20px;color:black;" ><div class="media-body" id="media-body" ><div class="media" ><div class="media-body" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Alice : </strong> '+ "Hi, how may I help you?" + ' </div></div></div></li>');
+               
+                menu_display();      
             });
-           
-    
- 
-        $(function() {
-            
-            
-            $(document).ready(function(){
-                
-                $(document).on('click','button',function(){
-                   //code here
-                   message=this.value;
-                   $('#messageText').val(message)                 
-                    $('#chatbot-form').submit();
-                    document.getElementById('menu2').style.display = 'none';
-                });
-            });
-             
-
-            $('#chatbot-form').submit(function(e) {
-//                $( document ).ajaxStop(function() {
-//                  console.log( "Triggered ajaxStop handler." );
-//                });
-                e.preventDefault();
-                 const chatPanel = document.getElementById("chatPanel");
-                len=$('#messageText').val().length;                
-                if(len>=1)
-                    message=$('#messageText').val();
-                var msglen =message.length  ;           
-                if(len>=1 || msglen>=1)
-                    {
-                           $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> </strong> '+ message + '</div></li>');
-                    }
+            $(document).off().on('click','#contact-btn',function(e)
+            {     
+                fullname=$('#name').val();
+                phone = $('#phone').val();
                 
                 $.ajax({
-                    type: "POST",
-                    url: "/ask",
-                    data: $(this).serialize(), 
-                    async: false,
-                    success: function(response) {
-                         $('#messageText').val('');
-                            answer = response.answer; 
-                            
-			             $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);			             
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                    
-                });
+                        url: "/contact",
+                        dataType: "json", 
+                        async:true,
+                        data:JSON.stringify( { "name": fullname, "phone": phone } ),
+                        type: "POST",
+                        success: function(response) {
+                            console.log(response.name);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
                 
-                 if(answer)
-                         {
-                            const chatPanel = document.getElementById("chatPanel");
-                                if(answer==="Contact Us")
-                                    {   
-                                    var flag=false;
-                                      $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-left\:-40px;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="product"><div class="product_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Sales Enquiry</div><div class="product_des" style="padding-top: 5px;">Email id:<a href="mailto:dhruvbabbar349@gmail.com" target="_blank">dhruvbabbar349@gmail.com</a><br>Helpline No: 1800 000 0000</div></div></div></li>');
-                                        
-                                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="product"><div class="product_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Policy Enquiry</div><div class="product_des" style="padding-top: 5px;">Email id:<a href="mailto:customercare@dhfl.com" target="_blank">customercare@dhfl.com</a><br>Helpline No: 1800 000 0000</div></div></div></li>');
-                                        
-                                      
-                                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Help us stay in touch.." + '</div></li>');
-                                        
-                                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  onsubmit="return name_validation()" class="contact" id="contact-form" method="post" name="name" ><div class="form-group" style="padding-right: 2px;"><input type="name" class="input-md form-control " id="name" placeholder="Name" style="border:1px solid #1679ba;margin-bottom: 5px;"><span  id="name_error" class="error" style="display: none;">** A valid name is required</span></div><div class="form-group"><input type="phone" class="form-control input-md" id="phone" placeholder="Phone" style="border:1px solid #1679ba;margin-bottom: 5px;display: inline;"><span  id="phone_error" class="error" style="display: none;">** A valid phone mobile number is required</span></div><button id="chatbot-form-btn"  style="background-color: #1679ba;color: #fff;margin-top: -4px;" class="btn btn-default">Submit</button></form></li>');
-                                                function validateName(name) {
-                                                    if(name.length!=0)
-                                                        {
-                                                            if (/^[A-Za-z\s]+$/.test(name)  )
-                                                            {
-                                                                return true;
-                                                            }
-                                                            else 
-                                                              return false;
-                                                        }
-                                                    else
-                                                        return false;
-                                                      
-                                                    }
-                                                function validatePhone(number)
-                                                {
-                                                    if(number.length==10)
-                                                        {
-                                                            if (/^\d{10}$/.test(number) )
-                                                            {
-                                                                return true;
-                                                            }
-                                                            else 
-                                                              return false;
-                                                        }
-                                                    else
-                                                        return false;
-                                                }
-                                           
-                                            
-                                               $('#chatbot-form-btn').click(function(e)
-                                                {    
-                                                   var fullname=$('#name').val();
-                                                   var phone = $('#phone').val();
-                                                    alert(flag);
-//                                                   var flag = false;
-                                                  
-//                                                   if((!validateName(fullname)))
-//                                                    {
-//                                                        document.getElementById('name_error').style.display = 'block';
-//                                                        e.preventDefault();    
-//                                                    }
-//                                                   else if (validateName(fullname))
-//                                                    {
-//                                                         document.getElementById('name_error').style.display = 'none';
-//                                                    }
-//                                                       
-//                                                  if(!validatePhone(phone))
-//                                                   {
-//                                                        document.getElementById('phone_error').style.display = 'block';
-//                                                        e.preventDefault();                                                           
-//                                                   }
-//                                                   else if (validateName(phone))
-//                                                    {
-//                                                         document.getElementById('phone_error').style.display = 'none';
-//                                                    }
-//                                                    if(validatePhone(phone) && validateName(fullname) )
-//                                                    {
-//                                                       document.getElementById('phone_error').style.display = 'none';
-//                                                         document.getElementById('name_error').style.display = 'none';
-//                                                        flag=true;
-//                                                    }
-                                                   
-                                                    
-                                                        if(!flag)
-                                                        {
-                                                            e.preventDefault();
-                                                           $.ajax({
-                                                                url: "/contact",
-                                                                dataType: "json", 
-                                                                async:true,
-                                                                data:JSON.stringify( { "name": fullname, "phone": phone } ),
-                                                                type: "POST",
-                                                                success: function(response) {
-                                                                    console.log(response.name);
-                                                                   
-                                                                    flag=true;
-                                                                },
-                                                                error: function(error) {
-                                                                    console.log(error);
-                                                                }
-                                                            });
-                                                         
-                                                         document.getElementById('menu2').style.display = 'none';
-                                                         document.getElementById('contact-form').style.display = 'none';
+                $("#content").html("");
+                $("#media-list").html("");
+                $("#media-body").html("");
+                
+                e.preventDefault();
+               
+            });
+            
+            function menu_recur_display()
+            {
+                 $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
+                menu_display();
+            }
+            function menu_display()
+            {               
+                $( "#contact-btn" ).unbind( "click" );
+                $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Pay</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></li>');    
+            }
+           
+            $(document).on('click','#option',function()
+            {
+                message=this.value;
+                console.log(message);
+               
+                $('#messageText').val(message)                 
+                $('#chatbot-form').submit();
+                  
+            });
+ 
+        $(function()
+        {
+            e.preventDefault();
+            const chatPanel = document.getElementById("chatPanel");
+            len=$('#messageText').val().length;                
+            if(len>=1)
+                message=$('#messageText').val();
+            var msglen =message.length  ;           
+            if(len>=1 || msglen>=1)
+            {
+                   $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> </strong> '+ message + '</div></li>');
+            }
+                
+           $.ajax({
+                type: "POST",
+                url: "/ask",
+                data: $(this).serialize(), 
+                async: false,
+                success: function(response) {
+                     $('#messageText').val('');
+                        answer = response.answer; 
 
-                                                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
+                     $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);
 
+                },
+                error: function(error) {
+                    console.log(error);
+                }
 
-                                                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>');  
-                                                        }
-                                                  
-                                                  
-                                                 });
-                                                
-                                    }
-                                else if (answer==="Payment")
-                                {
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;margin-left:-40px;width:60%;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="payment"><div class="payment_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Online Payment</div><div class="payment_des" style="padding-top: 5px;">You will be redirected to our parent Website to proceed with payment:<br><a href="https://www.dhflpramerica.com/" target="_blank">https://www.dhflpramerica.com/</a></div></div></div></li>');
+            });
+                
+               
+            if(answer)
+            {
+                 const chatPanel = document.getElementById("chatPanel");
+                    if(answer==="Contact Us")
+                    {  
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Help us stay in touch.." + '</div></li>');
 
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><div id="contact-del"><form class="contact" id="contact-form" name="name" ><div class="form-group" style="padding-right: 2px;"><input type="name" class="input-md form-control " id="name" placeholder="Name" style="border:1px solid #1679ba;margin-bottom: 5px;"><span  id="name_error" class="error" style="display: none;">** A valid name is required</span></div><div class="form-group"><input type="phone" class="form-control input-md" id="phone" placeholder="Phone" style="border:1px solid #1679ba;margin-bottom: 5px;display: inline;"><span  id="phone_error" class="error" style="display: none;">** A valid phone mobile number is required</span></div><button id="contact-btn"  value="Contact Us" style="background-color: #1679ba;color: #fff;margin-top: -4px;" class="btn btn-default">Submit</button></form></div></li>');
 
-                                     $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>');
-                                     document.getElementById('menu2').style.display = 'none';                                        
-                                }
+                    } 
+                          
+                    else if (answer==="Payment")
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;margin-left:-40px;width:60%;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="payment"><div class="payment_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Online Payment</div><div class="payment_des" style="padding-top: 5px;">You will be redirected to our parent Website to proceed with payment:<br><a href="https://www.dhflpramerica.com/" target="_blank">https://www.dhflpramerica.com/</a></div></div></div></li>');
+                                                                
+                    }
                                 
-                                else if (answer==="Policy Revival")
-                                {
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;margin-left:-40px;width:60%;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="revival"><div class="revival_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Policy Revival </div><div class="revival_desc" style="padding-top: 5px;">You will be redirected to our parent Website to understand the revival process :<br><a href="https://www.dhflpramerica.com/Faq/LifeInsurance/DHFL-Pramerica-Aajeevan-Samriddhi" target="_blank">https://www.dhflpramerica.com/Faq/LifeInsurance/DHFL-Pramerica-Aajeevan-Samriddhi</a></div></div></div></li>');
-
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
-
-                                     $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>');
-                                     document.getElementById('menu2').style.display = 'none';                                        
-                                }
+                    else if (answer==="Policy Revival")
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;margin-left:-40px;width:60%;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="revival"><div class="revival_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Policy Revival </div><div class="revival_desc" style="padding-top: 5px;">You will be redirected to our parent Website to understand the revival process :<br><a href="https://www.dhflpramerica.com/Faq/LifeInsurance/DHFL-Pramerica-Aajeevan-Samriddhi" target="_blank">https://www.dhflpramerica.com/Faq/LifeInsurance/DHFL-Pramerica-Aajeevan-Samriddhi</a></div></div></div></li>');
+                        menu_recur_display();           
+                     }
                                 
-                                else if (answer==="Customer Service")
-                                {
-                                    
-                                     document.getElementById('menu2').style.display = 'none';
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the sfollowing:" + '</div></li>');
-                                    
-                                    $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="customer-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyStatus" value="Policy Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Policy Status</button></div>                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="fundValue" value="Fund Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Fund Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="surrenderValue" value="Surrender Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Surrender Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumInfo" value="Premium Information" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;m ,argin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Premium Information</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="neftStatus" value="NEFT Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>NEFT Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="renewalStatus" value="Renewal Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Renewal Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="termMaturity" value="Maturity Benefit" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Maturity Benefit</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyRevival" value="Policy Revival" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Policy Revival</button></div></div></li>');
-                                }
+                    else if (answer==="Customer Service")
+                    {  
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the following:" + '</div></li>');
+
+                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="customer-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyStatus" value="Policy Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Policy Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="fundValue" value="Fund Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Fund Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="surrenderValue" value="Surrender Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Surrender Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumInfo" value="Premium Information" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Premium Information</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="neftStatus" value="NEFT Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>NEFT Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="renewalStatus" value="Renewal Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Renewal Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="termMaturity" value="Maturity Benefit" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Maturity Benefit</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="policyRevival" value="Policy Revival" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Policy Revival</button></div></div></li>');
+                    }
                                 
-                                else if (answer==="Premium Information")
-                                {
-                                    
-                                     document.getElementById('customer-menu').style.display = 'none';
-                                    $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the following:" + '</div></li>');
-                                    
-                                    $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="premium-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="revivalAmount" value="Revival Amount" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Revival Amount</button></div>                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumDiff" value="Premium Difference" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Premium Difference</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumStatus" value="Premium Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Premium Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="lastPremium" value="Previous Premium" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Previous Premium</button></div></li>');
-                                }
+                    else if (answer==="Premium Information")
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the following:" + '</div></li>');
+
+                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="premium-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="revivalAmount" value="Revival Amount" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Revival Amount</button></div>                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumDiff" value="Premium Difference" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Premium Difference</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="premiumStatus" value="Premium Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Premium Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="lastPremium" value="Previous Premium" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Previous Premium</button></div></li>');
+                    }
                                 else if(answer==="Revival Amount")
                                 {
                                      $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
@@ -432,45 +358,40 @@ input:-webkit-autofill:focus {
                                         }
                                     
                                     $('#policy-number-btn').click(function(e)
-                                                {
-                                                    var revivalAmount;
-                                                    var policyNo=$('#policyNumberRevival').val();
-                                                    if(!validateRevival(policyNo))
-                                                    {
-                                                        e.preventDefault();
-                                                        document.getElementById('policy_error').style.display = 'block';
-                                                    }
-                                                    else
-                                                    {   
-                                                         document.getElementById('policy_error').style.display = 'none';
-                                                         e.preventDefault();
-                                                        $.ajax({
-                                                            url: "/revivalAmount",
-                                                            dataType: "json", 
-                                                            async:false,
-                                                            data:JSON.stringify( { "policyNumber": policyNo } ),
-                                                            type: "POST",
-                                                            success: function(response) {
-                                                               
-                                                                revivalAmount=response.answer;
-                                                            },
-                                                            error: function(error) {
-                                                                console.log(error);
-                                                            }
-                                                        });
-                                                  
-                                                         document.getElementById('customer-menu').style.display = 'none';
-                                                         document.getElementById('menu2').style.display = 'none';
-                                                         document.getElementById('policyNumber-form').style.display = 'none';
-                                                        $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Revival Amount for policy number <u>'+ policyNo+'</u> :</strong> '+revivalAmount + '</div></li>');
+                                    {
+                                        var revivalAmount;
+                                        var policyNo=$('#policyNumberRevival').val();
+                                        if(!validateRevival(policyNo))
+                                        {
+                                            e.preventDefault();
+                                            document.getElementById('policy_error').style.display = 'block';
+                                        }
+                                        else
+                                        {   
 
-                                                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
+                                            e.preventDefault();
+                                            $.ajax({
+                                                url: "/revivalAmount",
+                                                dataType: "json", 
+                                                async:false,
+                                                data:JSON.stringify( { "policyNumber": policyNo } ),
+                                                type: "POST",
+                                                success: function(response) {
+
+                                                    revivalAmount=response.answer;
+                                                },
+                                                error: function(error) {
+                                                    console.log(error);
+                                                }
+                                            });
 
 
-                                                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Payment</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></div></li>'); 
-                                                    }
-                                                     
-                                                 });
+                                            $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Revival Amount for policy number <u>'+ policyNo+'</u> :</strong> '+revivalAmount + '</div></li>');
+
+                                            menu_recur_display();  
+                                        }
+
+                                     });
                                 }
                                 
                                 else if(answer==="Premium Difference")
@@ -507,7 +428,7 @@ input:-webkit-autofill:focus {
                                                             url: "/premiumDifference",
                                                             dataType: "json", 
                                                             async:false,
-                                                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                                                            data:JSON.stringify( { "policyNumber": policn yNo } ),
                                                             type: "POST",
                                                             success: function(response) {
                                                                

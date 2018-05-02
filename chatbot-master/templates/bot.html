@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chatbot</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+<!--       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+<!--        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">-->
+        <style type="text/css">
+         .fixed-panel {
+                min-height: 400px;
+                max-height: 400px;
+		background-image:url("{{url_for('static',filename="bg6.jpg")}}");
+		color: white;
+                overflow: auto;
+                          }
+            .media-list,content {
+
+           		overflow: auto;
+			clear: both;
+			display: inline-block;
+			overflow-wrap: break-word;
+			word-wrap: break-word;
+			word-break: normal;
+			line-break: strict;		
+           }
+            .error{
+                color: red;
+            }
+            a:hover{
+                text-decoration: none;
+            }
+			.panel {
+			margin-bottom: 0px;
+			background-color: #fff;
+			border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+			}
+			.panel-info {
+			
+			}
+			.panel-info>.panel-heading {
+
+                background-color: #fff;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                padding-top: 45px;
+                margin-top: -1px;
+                margin-left: -1px;
+                margin-right: -1px;
+			}
+			.panel-footer {
+                position: relative;
+			background-color: #fff;
+			border-bottom-right-radius: 10px;
+			border-bottom-left-radius: 10px;
+			}
+            .panel-footer input{text-indent: 5px;}
+            
+            .panel-footer .fa-phone-volume { 
+                  position: absolute;
+                  top: 14px;
+                  padding-left: 20px;
+                  right:10px;
+                  font-size: 15px;
+                  float: right;
+                }
+            .panel-footer .fa-microphone:hover { 
+                    text-decoration: none;
+                    outline: none;
+                    background-color: white;
+                    
+                }
+            
+            .logo{
+                background: url("{{url_for('static',filename="logo.png")}}");
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: block;
+                width: 100%;                
+            }
+           #contact-form ::placeholder
+            { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #1679ba;
+                opacity: 1; /* Firefox */
+            }
+            #policyNumber-form ::placeholder
+             { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #1679ba;
+                opacity: 1; /* Firefox */
+            }
+           
+            input.form-control,input.form-control:focus,input.form-control:hover {
+                border:none;
+                box-shadow: none;
+               -webkit-box-shadow: none;
+               -moz-box-shadow: none;
+               -moz-transition: none;
+               -webkit-transition: none;
+                background: white;
+            }
+           input:-webkit-autofill {
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+}
+
+input:focus,
+input:-webkit-autofill:focus {
+    border-color: #66afe9;
+    -webkit-box-shadow: inset 0 0 0px 9999px white,
+                        0 0 8px rgba(102, 175, 233, 0.6);
+}
+            
+        
+            
+/*
+             @media screen and (max-width: 480px) {
+                 .option{
+                     width: 50%;
+                 }
+            }
+*/
+            @media screen and (max-width: 500px) {
+                 .col-lg-6, col-sm-6, col-md-6{
+                     width: 80%;
+                     margin-left: -10px;
+                 }                
+            }
+            
+            }
+            
+			
+			body {
+			
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#608f95', endColorstr='#1a1e3b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+			}
+
+        </style>
+    </head>
+<body style="background: rgb(200,199,201);">
+        <div class="container">
+		  
+            <div class="row" style="padding-top: 40px;border: none;" >
+                
+        
+                <div class="col-md-7 col-md-offset-2">
+				
+                    <div id="chatPanel" class="panel panel-info " style="box-shadow: 2px 3px 4px rgba(45,44,45,0.6);width:100%;"> 
+                        <div class="panel-heading logo" style="">    
+                              
+                               
+<!--							<strong><span class="glyphicon glyphicon-globe"></span> BOT !!!</strong>-->
+						</div>
+                       
+                        <div class="panel-body fixed-panel " id="main-content" style="" >
+                           
+                            <ul class="media-list" id="media-list">
+                                
+                            </ul>
+                            <ul class="content" id="content" >
+
+                            </ul>
+                        </div>
+                        <div class="panel-footer"> 
+                         
+                          
+                            <form method="post" id="chatbot-form" >
+                          
+                                <div class="">
+                                    <div class="form-group">
+
+                                      <div class="input-group " style="margin-bottom: -10px;">
+                                        <input type="text" class="form-control" style="outline: none;" placeholder="Enter your message..." name="messageText" id="messageText"/> <span style="background: white;outline: none;border: none;padding-right: 0px;" class="input-group-addon"><a href="#"> <i
+                                          class="fas fa-home" style="font-size: 20px;padding-right: 10px;"></i></a><a href="#"> <i class="fas fa-microphone" style="font-size: 20px;"></i></a>
+                                        </span>
+                                        <span style="background: white;outline: none;border: none;" class="input-group-addon">
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+<!--
+                                   
+                                        <input type="text" class="form-control" style="outline: none;" placeholder="Enter your message..." name="messageText" id="messageText" width="" style="float: left;" />
+                                   
+                                         <span class="fas fa-phone-volume" style="font-size:30px;float:left;float: right;"></span>
+                                    
+-->
+                               
+                                
+                            </form>
+                           
+                        </div>
+                    </div>
+              
+                </div>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script>
+            var message;
+            var len;
+            var answer;
+            
+            $(window).load(function(){
+                $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Hi, how may I help you?" + '</div></li>');
+                
+               // display main menu..function call
+                menu_display();      
+            });
+            
+            //event handler for contact button click
+            $(document).off().on('click','#contact-btn',function(e)
+            {     
+                e.preventDefault(); //prevent screen rollback/refresh
+                
+                var fullname=$('#name').val();
+                var phone = $('#phone').val();
+               
+                //ajax call to /contact in main.py to store data in MySQL table customer
+                $.ajax({
+                        url: "/contact",
+                        dataType: "json", 
+                        async:true,
+                        data:JSON.stringify( { "name": fullname, "phone": phone } ),
+                        type: "POST",
+                        success: function(response) {
+                            console.log(response.name);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                
+                //clear all content on the page
+                $("#content").html("");
+                $("#media-list").html("");
+
+                //display thank you message.
+                 $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Thank you. We will get in touch with you." + '</div></li>');
+                
+                //call main menu again.
+                menu_recur_display();
+            });
+            function menu_recur_display()  
+            {
+                //this function displays a message and calls the main-menu
+                
+                 $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "What else can I help you with?" + '</div></li>');
+                menu_display();
+            }
+            function menu_display()
+            {               
+                $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="menu2"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><a href=""><button class=" btn btn-default " id="option" value="Quote" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-list" style="font-size:20px;float:left;"></i>Quote</button></a></div> <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Contact Us" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-phone-volume" style="font-size:20px;float:left;"></i>Contact Us</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Payment" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-credit-card" style="font-size:20px;float:left;"></i>Pay</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Customer Service" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Customer Service</button></div></div></li>');    
+            }
+            
+            //option is the id for all main-menu buttons.Function to detect value of button clicked.            
+            $(document).on('click','#option',function(e)
+            {
+                e.preventDefault();
+                message=this.value;
+               
+                $('#messageText').val(message)                 
+                $('#chatbot-form').submit();
+                  
+            });
+            
+            //policy number validation
+            function validatePolicyNumber(policy)
+            {                                        
+                var re = /^\w+$/;
+                if (!re.test(policy) || policy.length!=8 ) {                                           
+                    return false;
+                }
+                return true;
+            }
+            
+            $(document).on('click','#policy-revival-amt',function(e)
+            {
+                var revivalAmt;
+                var policyNo=$('#polStatus').val();//get policy number from form
+                e.preventDefault();//prevent screen rollback/refresh
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/revivalAmount",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                revivalAmt=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    //display current button value after clearscreen so that user knows what selection he made.
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                   
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Revival Amount for policy number  </strong> '+ policyNo+' : '+revivalAmt + '</div></li>');
+                    
+                    //call main menu again
+                    menu_recur_display(); 
+                }
+             });
+                  
+            $(document).on('click','#premium-diff',function(e)
+            {
+                var premDiff;
+                var policyNo=$('#polStatus').val();//get policy number from form
+                e.preventDefault();//prevent screen rollback/refresh
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/premiumDifference",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                premDiff=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    //display current button value after clearscreen so that user knows what selection he made.
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                   
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Premium Difference for policy number  </strong> '+ policyNo+' : '+premDiff + '</div></li>');
+                    
+                    //call main menu again
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#premium-status',function(e)
+            {
+                var premStatus;
+                var policyNo=$('#polStatus').val();//get policy number from form
+                e.preventDefault();//prevent screen rollback/refresh
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/premiumStatus",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                premStatus=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    //display current button value after clearscreen so that user knows what selection he made.
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                   
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Premium Status for policy number  </strong> '+ policyNo+' : '+premStatus + '</div></li>');
+                    
+                    //call main menu again
+                    menu_recur_display(); 
+                }
+             });            
+           
+            $(document).on('click','#previous-premium',function(e)
+            {
+                var prevPremium;
+                var policyNo=$('#polStatus').val();//get policy number from form
+                e.preventDefault();//prevent screen rollback/refresh
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/prevPremium",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                prevPremium=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    //display current button value after clearscreen so that user knows what selection he made.
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                   
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong>Previous Premium for policy number  </strong> '+ policyNo+' : '+prevPremium + '</div></li>');
+                    
+                    //call main menu again
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#policy-number-status',function(e)
+            {
+                var status;
+                var policyNo=$('#polStatus').val();
+                e.preventDefault();
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/policyStatus",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                status=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Policy Status for policy number  </strong> '+ policyNo+' : '+status + '</div></li>');
+
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#policy-fund-val',function(e)
+            {
+                var fundValue;
+                var policyNo=$('#polStatus').val();
+                e.preventDefault();
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/fundValue",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                fundValue=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Policy fund value for policy number  </strong> '+ policyNo+' : '+fundValue + '</div></li>');
+
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#policy-surrender-val',function(e)
+            {               
+                var surrenderVal;
+                var policyNo=$('#polStatus').val();
+                e.preventDefault();
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/surrenderValue",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                surrenderVal=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Policy surrender value for policy number  </strong> '+ policyNo+' : '+surrenderVal + '</div></li>');
+
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#neft-status',function(e)
+            {               
+                var neftStatus;
+                var policyNo=$('#polStatus').val();
+                e.preventDefault();
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/neftStatus",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                neftStatus=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> NEFT status for policy number  </strong> '+ policyNo+' : '+neftStatus + '</div></li>');
+
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#renewal-status',function(e)
+            {               
+                var renewalStatus;
+                var policyNo=$('#polStatus').val();
+                e.preventDefault();
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/renewalStatus",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                renewalStatus=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Renewal status for policy number  </strong> '+ policyNo+' : '+renewalStatus + '</div></li>');
+
+                    menu_recur_display(); 
+                }
+             });
+            
+            $(document).on('click','#maturity-benefit',function(e)
+            {               
+                var maturityBenefit;
+                var policyNo=$('#polStatus').val();
+                e.preventDefault();
+
+                if(!validatePolicyNumber(policyNo))
+                {
+                   
+                    document.getElementById('policy_error').style.display = 'block';
+                }
+                else
+                {
+                    document.getElementById('policy_error').style.display = 'none';
+                  
+                   $.ajax({
+                            url: "/maturityBenefit",
+                            dataType: "json", 
+                            async:false,
+                            data:JSON.stringify( { "policyNumber": policyNo } ),
+                            type: "POST",
+                            success: function(response) {
+
+                                maturityBenefit=response.answer;
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    
+                    //clear previous content
+                    $("#content").html("");
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                    
+                    $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> Maturity Benefit for policy number  </strong> '+ policyNo+' : '+maturityBenefit + '</div></li>');
+
+                    menu_recur_display(); 
+                }
+             });
+ 
+        $(function()
+        {    
+            //this function reads the value from the input box at the bottom of the chat window. 
+            //even if user clicks on a button and does not manually enter in the text box, the button value gets passed on to the text box.
+            $('#chatbot-form').submit(function(e)
+            {                        
+                e.preventDefault();
+                const chatPanel = document.getElementById("chatPanel");
+                len=$('#messageText').val().length;    //
+                
+                if(len>=1)
+                    message=$('#messageText').val(); //after extracting value from text box, this empties the text-box for visual appeal.
+                var msglen =message.length  ;   
+                
+                //check if input isnt empty.
+                if(len>=1 || msglen>=1)
+                {
+                       $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> </strong> '+ message + '</div></li>');
+                }
+                
+                //this ajax call gets response from the AIML files. 
+               $.ajax({
+                    type: "POST",
+                    url: "/ask",
+                    data: $(this).serialize(), 
+                    async: false,
+                    success: function(response) {
+                         $('#messageText').val('');
+                            answer = response.answer; 
+                            
+			             $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);
+			
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }                    
+                });   
+              
+                 if(answer)
+                 {                
+                     //get the main chat-panel from html. 
+                    const chatPanel = document.getElementById("chatPanel");
+                    
+                    //values are appended to an unordered html list in order to be able to execute  $("#content").html("")
+                    if(answer==="Contact Us")
+                    {                           
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Help us stay in touch.." + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><div id="contact-del"><form class="contact" id="contact-form" name="name" ><div class="form-group" style="padding-right: 2px;"><input type="name" class="input-md form-control " id="name" placeholder="Name" style="border:1px solid #1679ba;margin-bottom: 5px;"><span  id="name_error" class="error" style="display: none;">** A valid name is required</span></div><div class="form-group"><input type="phone" class="form-control input-md" id="phone" placeholder="Phone" style="border:1px solid #1679ba;margin-bottom: 5px;display: inline;"><span  id="phone_error" class="error" style="display: none;">** A valid phone mobile number is required</span></div><button id="contact-btn"  value="Contact Us" style="background-color: #1679ba;color: #fff;margin-top: -4px;" class="btn btn-default">Submit</button></form></div></li>');
+                    }
+                    else if (answer==="Payment")
+                    {   
+                         //clear previous content
+                        $("#content").html("");
+                        
+                        $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                        
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;margin-left:-40px;width:80%;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="payment"><div class="payment_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Online Payment</div><div class="payment_des" style="padding-top: 5px;">You will be redirected to our parent Website to proceed with payment:<br><a href="https://www.dhflpramerica.com/" target="_blank">https://www.dhflpramerica.com/</a></div></div></div></li>');
+                        
+                        menu_recur_display();                                                                
+                    }
+                    else if (answer==="Policy Revival")
+                    {
+                        //clear previous content
+                        $("#content").html("");
+                        
+                        
+                        $(".content").append('<li class="media-list" style="background-color:#1679ba;border-radius:20px;color:white;display:inline-block;padding-right:20px;float:right;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;">'+'<strong> '+ answer + '</strong></div></li>');
+                        
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;margin-left:-40px;width:60%;padding-right:20px;padding-left:20px;padding-bottom:10px;padding-top:10px;float:left;margin-bottom:10px;"><div class="" margin-top: 10px;padding-left: 10px; text-align: left;" ><div class="revival"><div class="revival_title" style="border-bottom: 1px solid #666;padding-bottom: px;font-weight: 700;">Policy Revival </div><div class="revival_desc" style="padding-top: 5px;">You will be redirected to our parent Website to understand the revival process :<br><a href="https://www.dhflpramerica.com/Faq/LifeInsurance/DHFL-Pramerica-Aajeevan-Samriddhi" target="_blank">https://www.dhflpramerica.com/Faq/LifeInsurance/DHFL-Pramerica-Aajeevan-Samriddhi</a></div></div></div></li>');
+                        
+                        menu_recur_display();           
+                     }
+                    else if (answer==="Customer Service")
+                    {  
+                         //clear all content on the page
+                        $("#content").html("");
+                        $("#media-list").html("");
+                        
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the following:" + '</div></li>');
+
+                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="option-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Policy Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Policy Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Fund Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Fund Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Surrender Value" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Surrender Value</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Premium Information" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Premium Information</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="NEFT Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>NEFT Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Renewal Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Renewal Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Maturity Benefit" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Maturity Benefit</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Policy Revival" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Policy Revival</button></div></div></li>');
+                    }
+                    else if(answer==="Policy Status")
+                    {
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="policy-number-status"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if(answer==="Fund Value")
+                    {
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="policy-fund-val"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if(answer==="Surrender Value")
+                    {
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="policy-surrender-val"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if (answer==="Premium Information")
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please choose one of the following:" + '</div></li>');
+
+                        $(".content").append('<li class="media-list"  style="border-radius:20px;color:black;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;width:90%;"><div id="premium-menu"><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Revival Amount" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-sync-alt" style="font-size:20px;float:left;"></i>Revival Amount</button></div>                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Premium Difference" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-handshake" style="font-size:20px;float:left;"></i>Premium Difference</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Premium Status" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-dollar-sign" style="font-size:20px;float:left;"></i>Premium Status</button></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style=""><button class="btn btn-default " id="option" value="Previous Premium" style="border-radius:20px;border:1px solid #1679ba;color:#1679ba;margin-right:0px;width:100%;margin-bottom: 5px;"><i class="fas fa-clipboard-check" style="font-size:20px;float:left;"></i>Previous Premium</button></div></li>');
+                    }
+                    else if(answer==="Revival Amount")
+                    {
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="policy-revival-amt"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if(answer==="Premium Difference")
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="premium-diff"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if(answer==="Premium Status")
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="premium-status"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }                    
+                    else if(answer==="Previous Premium")
+                    {                                    
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="previous-premium"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }    
+                    else if(answer==="NEFT Status")
+                    {
+                          $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="neft-status"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if(answer==="Renewal Status")
+                    {
+                         $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="renewal-status"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }
+                    else if(answer==="Maturity Benefit")
+                    {
+                          $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ "Please enter your policy number" + '</div></li>');
+
+                         $(".content").append('<li class="media-list" style="margin-left:-40px;color:black;padding-right:20px;float:left;margin-bottom:10px;"><form  class="policyNumber form-inline " style="" id="policyNumber-form" method="post" name="policyNumber" ><div class="form-group" style="padding-right: 2px;"><input type="polStatus" class="input-md form-control " id="polStatus" placeholder="Enter Policy Number" style="border:1px solid #1679ba;margin-bottom: 5px;"></div><button id="maturity-benefit"  style="background-color: #1679ba;color: #fff;margin-top: -5px;" class="btn btn-default">Submit</button><span  id="policy_error" class="error" style="display: none;">** A valid policy number is required</span></form></li>');
+                    }  
+                    
+                    else
+                    {
+                        $(".content").append('<li class="media-list" style="background-color:azure;border-radius:20px;color:black;display:inline-block;padding-right:20px;float:left;margin-left:-40px;margin-bottom:10px;"><div class="" style="padding-left:20px;padding-top:10px;padding-bottom:10px;border:none;float:left;">'+'<strong>Alice : </strong> '+ answer + '</div></li>');
+                    }
+                    $(".fixed-panel").stop().animate({ scrollTop: $(".fixed-panel")[0].scrollHeight}, 1000);
+                 }
+            });
+        });
+        </script>
+    </body>
+</html>
