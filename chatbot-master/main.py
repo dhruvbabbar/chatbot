@@ -3,18 +3,11 @@ import aiml
 import json
 import os
 import dates as dt
-import pymysql.cursors
-#from flask.ext.mysql import MySQL
-connection = pymysql.connect(host='localhost',
-                             user='Springstudent',
-                             password='Springstudent',
-                             db='Web_customer_service',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+import connectionfactory
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/chatbot")
 def main():
     return render_template('bot.html')
 
@@ -22,41 +15,27 @@ def main():
 #Error: this saves the data into the database but happens only once. Second time the control somehow returns the main menu by calling the "/" controller stated above. 
 @app.route("/contact", methods=['POST'])
 def contact():  
-            connection = pymysql.connect(host='localhost',
-                             user='Springstudent',
-                             password='Springstudent',
-                             db='Web_customer_service',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-            if(connection.close):
-                connection = pymysql.connect(host='localhost',
-                             user='Springstudent',
-                             password='Springstudent',
-                             db='Web_customer_service',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-           
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+            
+            #2. Get request object values
             result = request.get_json(force=True)
             name= result.get('name')
             phone=result.get('phone')
-           
+            print "Request Object" + str(result)
+            
+            #3. Save request Object.
             with connection.cursor() as cursor:
-            # Read a single record
                 sql = "INSERT INTO customer (Namez,Phone) VALUES (%s, %s)";
                 cursor.execute(sql, (name,phone))
                 connection.commit()  
-                print(name)
-                print(phone)                
-#                cursor.close()
-                connection.close()
                 return "Saved successfully."
-        
-#app.route("/test",method=['POST','GET'])
-#def test():
-            
-        
+ 
 @app.route("/policyStatus", methods=['POST'])
 def status():  
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+            
             result = request.get_json(force=True)
             number = result.get('policyNumber')           
             with connection.cursor() as cursor:
@@ -70,7 +49,10 @@ def status():
             return jsonify({'status':'OK','answer':status})  
         
 @app.route("/renewalStatus", methods=['POST'])
-def renewalStatus():  
+def renewalStatus(): 
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+             
             result = request.get_json(force=True)
             number = result.get('policyNumber')            
             with connection.cursor() as cursor:
@@ -84,7 +66,10 @@ def renewalStatus():
             return jsonify({'status':'OK','answer':renewalStatus})  
         
 @app.route("/maturityBenefit", methods=['POST'])
-def maturityBenefit():  
+def maturityBenefit():
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+              
             result = request.get_json(force=True)
             number = result.get('policyNumber')            
             with connection.cursor() as cursor:
@@ -99,7 +84,10 @@ def maturityBenefit():
             return jsonify({'status':'OK','answer':maturity})  
         
 @app.route("/fundValue", methods=['POST'])
-def fundVal():      
+def fundVal():  
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                
             result = request.get_json(force=True)
             number = result.get('policyNumber')                
             with connection.cursor() as cursor:
@@ -113,7 +101,10 @@ def fundVal():
             return jsonify({'status':'OK','answer':fundValue})       
         
 @app.route("/surrenderValue", methods=['POST'])
-def surrenderVal():      
+def surrenderVal():  
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                
             result = request.get_json(force=True)
             number = result.get('policyNumber') 
             with connection.cursor() as cursor:
@@ -127,7 +118,10 @@ def surrenderVal():
             return jsonify({'status':'OK','answer':surrenderValue})
 
 @app.route("/neftStatus", methods=['POST'])
-def neftStatus():      
+def neftStatus():  
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                
             result = request.get_json(force=True)
             number = result.get('policyNumber') 
             with connection.cursor() as cursor:
@@ -141,7 +135,10 @@ def neftStatus():
             return jsonify({'status':'OK','answer':neftStatus})
         
 @app.route("/revivalAmount", methods=['POST'])
-def revivalAmount():      
+def revivalAmount():
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                  
             result = request.get_json(force=True)
             number = result.get('policyNumber') 
             with connection.cursor() as cursor:
@@ -155,7 +152,10 @@ def revivalAmount():
             return jsonify({'status':'OK','answer':revivalAmt})
         
 @app.route("/premiumDifference", methods=['POST'])
-def premiumDifference():      
+def premiumDifference():
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                  
             result = request.get_json(force=True)
             number = result.get('policyNumber') 
             with connection.cursor() as cursor:
@@ -169,7 +169,10 @@ def premiumDifference():
             return jsonify({'status':'OK','answer':premiumDifference})
         
 @app.route("/premiumStatus", methods=['POST'])
-def premiumStatus():      
+def premiumStatus(): 
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                 
             result = request.get_json(force=True)
             number = result.get('policyNumber') 
             with connection.cursor() as cursor:
@@ -183,7 +186,10 @@ def premiumStatus():
             return jsonify({'status':'OK','answer':premiumStatus})
         
 @app.route("/prevPremium", methods=['POST'])
-def prevPremium():      
+def prevPremium():
+            #1. Get DB connection
+            connection = connectionfactory.getConnection()
+                  
             result = request.get_json(force=True)
             number = result.get('policyNumber') 
             with connection.cursor() as cursor:
